@@ -1,4 +1,3 @@
 docker_builder:
   timeout_in: 90m
   push_script: docker run --privileged --net host nmlm99/nizadam:latest
-
