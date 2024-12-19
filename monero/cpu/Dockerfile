@@ -43,7 +43,7 @@ RUN git clone https://gitlab.com/yawning/obfs4.git /obfs4 && \
     cd /obfs4 && \ 
     go build -o obfs4proxy/obfs4proxy ./obfs4proxy && \
     cp obfs4proxy/obfs4proxy /usr/local/bin && \
-    chmod +x  /usr/local/bin
+    chmod +x /usr/local/bin/obfs4proxy
 
 # Clone and build xmrig
 RUN git config --global http.sslVerify false && \
@@ -70,6 +70,11 @@ RUN apk del --no-cache --purge \
         binutils && \
     rm -rf /var/cache/apk/*
 
+# Modify Tor Configuration - Avoid read-only errors
+RUN echo "nameserver 127.0.0.1" > /etc/resolv.conf && \
+    echo "DNSPort 9053" >> /etc/tor/torrc && \
+    sed "1s/^/SocksPort 0.0.0.0:9050\n/" /etc/tor/torrc.sample > /etc/tor/torrc
+
 # Expose the required port
 EXPOSE 80
 
@@ -77,7 +82,7 @@ EXPOSE 80
 WORKDIR /xmrig/build
 
 # Set the entrypoint to the entrypoint script
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh", "/usr/bin/work"]
+ENTRYPOINT ["/usr/bin/work"]
 
 # Health check to verify Tor connectivity
 HEALTHCHECK --interval=60s --timeout=15s --start-period=20s \
