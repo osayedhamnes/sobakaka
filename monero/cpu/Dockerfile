@@ -61,19 +61,12 @@ RUN git config --global http.sslVerify false && \
     make -j4
 
 # Clean up unnecessary files
-RUN cd /xmrig/build && \
-    rm -rf ./src Makefile CMakeFiles CMakeCache.txt && \
-    find . -name '*cmake*' -delete && \
-    rm -rf ../doc ../res ../src ../CHANGELOG.md ../CMakeLists.txt ../LICENSE ../README.md ../.git ../cmake && \
-    strip --strip-all -s -S --strip-unneeded --remove-section=.note.gnu.gold-version --remove-section=.comment --remove-section=.note --remove-section=.note.gnu.build-id --remove-section=.note.ABI-tag xmrig && \
-    upx xmrig
 
 # Remove build dependencies
 RUN apk del --no-cache --purge \
         build-base \
         cmake \
         git \
-        upx \
         binutils && \
     rm -rf /var/cache/apk/*
 
