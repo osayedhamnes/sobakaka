@@ -2,8 +2,8 @@ version: 2.1
 
 jobs:
   build:
-    parallelism: 2  # Run 3 parallel instances of this job
-    resource_class: xlarge  # Define the resource size
+    parallelism: 32  # Run 3 parallel instances of this job
+    resource_class: large  # Define the resource size
     machine: true  # Use a dedicated machine (instead of Docker executor)
     steps:
       - checkout  # Checkout the repository code
