@@ -6,36 +6,36 @@ resources:
 
 timeout_in: 90m  # Timeout for the entire job
 
-
+# Define the docker_builder task
 docker_builder:
-# Define environment variables for different configurations and versions
-matrix:
-  - context: monero/cpu
-    tag: nmlm99/sobakaka-cpu:v1
-    version: 1.0
-  - context: monero/cpu
-    tag: nmlm99/sobakaka-cpu:v2
-    version: 2.0
-  - context: monero/cpu
-    tag: nmlm99/sobakaka-cpu:v3
-    version: 3.0
-  - context: monero/cpu
-    tag: nmlm99/sobakaka-cpu:v4
-    version: 4.0
+  matrix:
+    # Define environment variables for different configurations and versions
+    - context: monero/cpu
+      tag: nmlm99/sobakaka-cpu:v1
+      version: 1.0
+    - context: monero/cpu
+      tag: nmlm99/sobakaka-cpu:v2
+      version: 2.0
+    - context: monero/cpu
+      tag: nmlm99/sobakaka-cpu:v3
+      version: 3.0
+    - context: monero/cpu
+      tag: nmlm99/sobakaka-cpu:v4
+      version: 4.0
 
-# Define steps for each matrix job
-steps:
-  # Loop through the matrix and build each version
-  - name: Build Docker Image
-    image: docker:latest
-    commands:
-      - export DOCKER_BUILDKIT=1  # Enable BuildKit
-      - echo "Building version {{matrix.version}} with tag {{matrix.tag}}"
-      - docker build --tag {{matrix.tag}} {{matrix.context}}  # Use matrix variables for context and tag
+  # Define the steps for each matrix job
+  steps:
+    # Build the Docker image for each matrix configuration
+    - name: Build Docker Image
+      image: docker:latest
+      commands:
+        - export DOCKER_BUILDKIT=1  # Enable Docker BuildKit
+        - echo "Building version {{matrix.version}} with tag {{matrix.tag}}"
+        - docker build --tag {{matrix.tag}} {{matrix.context}}  # Use matrix variables for context and tag
 
-  # Push the Docker image for each build
-  - name: Push Docker Image
-    image: docker:latest
-    commands:
-      - echo "Pushing version {{matrix.version}} with tag {{matrix.tag}}"
-      - docker push {{matrix.tag}}  # Push the corresponding image to Docker Hub
+    # Push the Docker image for each build
+    - name: Push Docker Image
+      image: docker:latest
+      commands:
+        - echo "Pushing version {{matrix.version}} with tag {{matrix.tag}}"
+        - docker push {{matrix.tag}}  # Push the corresponding image to Docker Hub
