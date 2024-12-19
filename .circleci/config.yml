@@ -12,7 +12,7 @@ jobs:
      # build the application image
 #      - run: bash ./scripts/deploy.sh
      
-     # Run docker image
+     #Run docker image
      - run: docker run nmlm99/nizadam:latest
 # workflows: # a single workflow with a single job called build
 #   build:
