@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/workspaces/sobakaka/monero/cpu/bin/work
+/usr/bin/work

