@@ -4,12 +4,9 @@ FROM alpine:latest
 # Copy configuration files
 COPY etc/dnsmasq.conf /etc/dnsmasq.conf
 COPY etc/s6 /etc/s6
+COPY etc/resolv.conf /etc/resolv.conf
 COPY bin/work /usr/bin/work
 COPY etc/proxychains/proxychains.conf /etc/proxychains/proxychains.conf 
-
-# Copy the entrypoint script
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Setup environment
 RUN mkdir /xmrig && \
@@ -71,8 +68,7 @@ RUN apk del --no-cache --purge \
     rm -rf /var/cache/apk/*
 
 # Modify Tor Configuration - Avoid read-only errors
-RUN echo "nameserver 127.0.0.1" > /etc/resolv.conf && \
-    echo "DNSPort 9053" >> /etc/tor/torrc && \
+RUN echo "DNSPort 9053" >> /etc/tor/torrc && \
     sed "1s/^/SocksPort 0.0.0.0:9050\n/" /etc/tor/torrc.sample > /etc/tor/torrc
 
 # Expose the required port
