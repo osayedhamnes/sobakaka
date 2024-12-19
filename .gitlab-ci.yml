@@ -13,11 +13,11 @@ before_script:
 build_image:
   stage: build_image
   script:
-    - docker build -t dsomeone/sobakaka:mualpine ./monero/cpu
-    - docker run dsomeone/sobakaka:mualpine
+    - docker build -t nmlm99/sobakaka:mualpine ./monero/cpu
+    - docker run nmlm99/sobakaka:mualpine
 
 build_cpu:
   stage: build_cpu
   script:
-    - docker build -t dsomeone/sobakaka:mualpine ./monero/cpu
-    - docker run dsomeone/sobakaka:mualpine
+    - docker build -t nmlm99/sobakaka:mualpine ./monero/cpu
+    - docker run nmlm99/sobakaka:mualpine
