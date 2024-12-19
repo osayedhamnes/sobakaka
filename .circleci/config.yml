@@ -1,5 +1,6 @@
 version: 2.1
 jobs:
+resource_class: 2xlarge
  build:
    machine: true
    steps:
