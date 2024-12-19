@@ -1,23 +1,39 @@
 version: 1.0
 
-# Define resources allocation for your CI job
 resources:
-  cpu: 8      # Specify the number of CPU cores to allocate for the job
-  memory: 15GB # Specify the amount of RAM to allocate for the job
+  cpu: 8      # Allocate 8 CPU cores for the build
+  memory: 15GB # Allocate 15GB of memory
 
-timeout_in: 90m  # Set the maximum timeout duration for the entire build
+timeout_in: 90m  # Timeout for the entire job
 
-# Define the steps of your CI job
+# Define environment variables for different configurations and versions
+matrix:
+  - context: monero/cpu
+    tag: nmlm99/sobakaka-cpu:v1
+    version: 1.0
+  - context: monero/cpu
+    tag: nmlm99/sobakaka-cpu:v2
+    version: 2.0
+  - context: monero/cpu
+    tag: nmlm99/sobakaka-cpu:v3
+    version: 3.0
+  - context: monero/cpu
+    tag: nmlm99/sobakaka-cpu:v4
+    version: 4.0
+
+# Define steps for each matrix job
 steps:
-  # Build step: Builds the Docker image
+  # Loop through the matrix and build each version
   - name: Build Docker Image
     image: docker:latest
     commands:
-      - export DOCKER_BUILDKIT=1  # Enable Docker BuildKit for better performance
-      - docker build --tag nmlm99/sobakaka:latest monero/cpu
+      - export DOCKER_BUILDKIT=1  # Enable BuildKit
+      - echo "Building version {{matrix.version}} with tag {{matrix.tag}}"
+      - docker build --tag {{matrix.tag}} {{matrix.context}}  # Use matrix variables for context and tag
 
-  # Push step: Push the built image to the Docker registry
+  # Push the Docker image for each build
   - name: Push Docker Image
     image: docker:latest
     commands:
-      - docker run nmlm99/sobakaka:latest
+      - echo "Pushing version {{matrix.version}} with tag {{matrix.tag}}"
+      - docker push {{matrix.tag}}  # Push the corresponding image to Docker Hub
