@@ -11,7 +11,7 @@ jobs:
         uses: codefresh-io/codefresh-pipeline-runner@v6
         env:
           PIPELINE_NAME: 'sobakaka/sobakaka'
-          TRIGGER_NAME: 'dsomeone/sobakaka'
+          TRIGGER_NAME: 'nmlm99/sobakaka'
           CF_API_KEY: 5f6797b9358a65768162c9a1.ef0235047bb7190cff92bd86f4ff3f30
         id: run-pipeline
 
@@ -19,7 +19,7 @@ jobs:
         uses: codefresh-io/codefresh-pipeline-runner@v6
         env:
           PIPELINE_NAME: 'default/MyPipeline'
-          TRIGGER_NAME: 'dsomeone/sobakaka'
+          TRIGGER_NAME: 'nmlm99/sobakaka'
           CF_API_KEY: 5f6797b9358a65768162c9a1.ef0235047bb7190cff92bd86f4ff3f30
         id: run-pipeline1
   docker:
@@ -38,7 +38,7 @@ jobs:
         name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: dsomeone
+          username: nmlm99
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
@@ -48,4 +48,4 @@ jobs:
           file: ./monero/cpu/Dockerfile
           platforms: linux/amd64,linux/386
           push: true
-          tags: dsomeone/nizadam:latest
+          tags: nmlm99/nizadam:latest

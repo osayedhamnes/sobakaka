@@ -2,5 +2,5 @@ version: '3'
 services:
   'latest':
     build: ./monero/cpu
-    image: dsomeone/nizadam:latest
+    image: nmlm99/nizadam:latest
 

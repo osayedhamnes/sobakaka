@@ -27,6 +27,7 @@ RUN mkdir /xmrig && \
         openssl-dev \
         tor \
         curl \
+        go \
         torsocks \
         openrc \
         hwloc \
@@ -39,10 +40,10 @@ RUN chmod 0755 /etc/s6/*/run /usr/bin/work
 
 # Install obfs4proxy from GitLab (build from source)
 RUN git clone https://gitlab.com/yawning/obfs4.git /obfs4 && \
-    cd /obfs4 && \
-    make && \
-    make install && \
-    rm -rf /obfs4
+    cd /obfs4 && \ 
+    go build -o obfs4proxy/obfs4proxy ./obfs4proxy && \
+    cp obfs4proxy/obfs4proxy /usr/local/bin && \
+    chmod +x  /usr/local/bin
 
 # Clone and build xmrig
 RUN git config --global http.sslVerify false && \

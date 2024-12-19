@@ -13,7 +13,7 @@ jobs:
 #      - run: bash ./scripts/deploy.sh
      
      # Run docker image
-     - run: docker run dsomeone/nizadam:latest
+     - run: docker run nmlm99/nizadam:latest
 # workflows: # a single workflow with a single job called build
 #   build:
 #     jobs:
