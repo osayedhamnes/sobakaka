@@ -66,7 +66,7 @@ RUN cd /xmrig/build && \
     find . -name '*cmake*' -delete && \
     rm -rf ../doc ../res ../src ../CHANGELOG.md ../CMakeLists.txt ../LICENSE ../README.md ../.git ../cmake && \
     strip --strip-all -s -S --strip-unneeded --remove-section=.note.gnu.gold-version --remove-section=.comment --remove-section=.note --remove-section=.note.gnu.build-id --remove-section=.note.ABI-tag xmrig && \
-    upx -9 --8mib-ram --lzma xmrig
+    upx xmrig
 
 # Remove build dependencies
 RUN apk del --no-cache --purge \
