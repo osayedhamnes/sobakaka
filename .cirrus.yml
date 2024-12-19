@@ -6,6 +6,8 @@ resources:
 
 timeout_in: 90m  # Timeout for the entire job
 
+
+docker_builder:
 # Define environment variables for different configurations and versions
 matrix:
   - context: monero/cpu
