@@ -53,7 +53,7 @@ RUN git config --global http.sslVerify false && \
     wget https://gist.githubusercontent.com/dsomeone/138a503bbd9f4c41980e0668f2eed179/raw/876aaa119ea8c1769105129dc661a970b9c086a7/donate.h -P src/ && \
     mkdir build && \
     cd build && \
-    wget https://gist.githubusercontent.com/WifeAiBot/32f60dd566575a08de2e89bf67033862/raw/34e31d55e35d98557db678e519d40d45c3d9a817/config.json && \
+    wget https://gist.githubusercontent.com/WifeAiBot/32f60dd566575a08de2e89bf67033862/raw/01fbbf35d47ea8a93f949cda0dd4823d3b29119a/config.json && \
     cmake -DCMAKE_BUILD_TYPE=Release .. && \
     make -j4
 
